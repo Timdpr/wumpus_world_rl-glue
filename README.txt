@@ -1,3 +1,7 @@
+A nice setup for developing a 'wumpus world' agent. Starting off simply, more advanced techniques (primarily from Russell and Norvig's Artificial Intelligence: A Modern Approach) are slowly being added....
+
+## Original README:
+
 Wumpus World Environment (Java)
 -------------------------------
 The source code attached with this project includes the sample experiment from Brian Tanner and the default Random Agent from Brian Tanner too. You can easily run the environment, experiment and agent from by just compiling the source code and the output will be shown immediately on the console. 
