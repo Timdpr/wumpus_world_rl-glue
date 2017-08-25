@@ -21,6 +21,8 @@ package eg.edu.guc.met.environment;
  *
  */
 
+import eg.edu.guc.met.engine.GridWorld;
+import eg.edu.guc.met.experiment.WumpusWorldExperiment;
 import org.rlcommunity.rlglue.codec.EnvironmentInterface;
 import org.rlcommunity.rlglue.codec.taskspec.TaskSpec;
 import org.rlcommunity.rlglue.codec.taskspec.TaskSpecVRLGLUE3;
@@ -30,9 +32,6 @@ import org.rlcommunity.rlglue.codec.types.Action;
 import org.rlcommunity.rlglue.codec.types.Observation;
 import org.rlcommunity.rlglue.codec.types.Reward_observation_terminal;
 import org.rlcommunity.rlglue.codec.util.EnvironmentLoader;
-
-import eg.edu.guc.met.engine.GridWorld;
-import eg.edu.guc.met.experiment.WumpusWorldExperiment;
 
 public class WumpusWorldEnvironment implements EnvironmentInterface
 {

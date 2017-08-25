@@ -22,17 +22,17 @@ package eg.edu.guc.met.experiment;
  *  $Author: brian@tannerpages.com $
  *  $HeadURL: http://rl-glue-ext.googlecode.com/svn/trunk/projects/codecs/Java/examples/skeleton-sample/RunAllSkeletonNoSockets.java $
  *
+ * Modified by Tim Russell in accordance with this licence
+ *
  */
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import eg.edu.guc.met.agent.WumpusWorldRandomAgent_intActions;
+import eg.edu.guc.met.environment.WumpusWorldEnvironment;
 import org.rlcommunity.rlglue.codec.AgentInterface;
 import org.rlcommunity.rlglue.codec.EnvironmentInterface;
 import org.rlcommunity.rlglue.codec.LocalGlue;
 import org.rlcommunity.rlglue.codec.RLGlue;
-
-import eg.edu.guc.met.agent.WumpusWorldRandomAgent_intActions;
-import eg.edu.guc.met.environment.WumpusWorldEnvironment;
 
 /**
 * A simple example of how can you run all components of the skeleton project from a single Java class
@@ -46,7 +46,7 @@ import eg.edu.guc.met.environment.WumpusWorldEnvironment;
 public class RunAllWumpusWorldNoSockets{
     static int RUNS = 1000;
 
-    public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException{
+    public static void main(String[] args) throws IOException, ClassNotFoundException{
         long t1 = System.currentTimeMillis();
         //Create the Environment
         EnvironmentInterface theEnvironment=new WumpusWorldEnvironment();
@@ -65,5 +65,4 @@ public class RunAllWumpusWorldNoSockets{
         System.out.println("time is " + t2 + "ms");
         System.out.println("average is " + t2/RUNS + "ms" );
     }
-
 }

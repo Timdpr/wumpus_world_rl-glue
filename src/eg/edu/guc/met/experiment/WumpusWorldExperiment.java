@@ -28,6 +28,8 @@ import org.rlcommunity.rlglue.codec.RLGlue;
 
 public class WumpusWorldExperiment {
 
+    public static int totalWithPositiveReward = 0;
+
     static public boolean sameWorld = false; // set to true if you want to start with
                                              // the same World each episode.
 
@@ -43,8 +45,11 @@ public class WumpusWorldExperiment {
 
         int totalSteps = RLGlue.RL_num_steps();
         double totalReward = RLGlue.RL_return();
+        if (totalReward > 0) {
+            totalWithPositiveReward ++;
+        }
 
-        System.out.println("Episode " + whichEpisode + "\t " + totalSteps
+        System.out.println("Episode " + (whichEpisode+1) + "\t " + totalSteps
                 + " steps \t" + totalReward + " total reward\t " + terminal
                 + " natural end");
 
@@ -80,7 +85,7 @@ public class WumpusWorldExperiment {
 
         for (int i = 0; i < RunAllWumpusWorldNoSockets.RUNS; i++)
         {
-            runEpisode(0);
+            runEpisode(1000);
             totalSteps += RLGlue.RL_num_steps();
             totalReward += RLGlue.RL_return();
         }
@@ -88,6 +93,11 @@ public class WumpusWorldExperiment {
         System.out.println("\n\n----------Summary----------");
 
         System.out.println("It ran for " + totalSteps + " steps, total reward was: " + totalReward);
+        System.out.println("Total episodes with gold collected: " + eg.edu.guc.met.agent.WumpusWorldRandomAgent_intActions.totalGoldCollected);
+        System.out.println("Total episodes with positive reward: " + getTotalWithPositiveReward());
+        System.out.println("Percentage of runs fully successful: " +
+                (float) getTotalWithPositiveReward() / RunAllWumpusWorldNoSockets.RUNS * 100);
+        System.out.println();
     }
 
     public static void main(String[] args) {
@@ -95,5 +105,9 @@ public class WumpusWorldExperiment {
             sameWorld = true;
         WumpusWorldExperiment theExperiment = new WumpusWorldExperiment();
         theExperiment.runExperiment();
+    }
+
+    public int getTotalWithPositiveReward() {
+        return totalWithPositiveReward;
     }
 }

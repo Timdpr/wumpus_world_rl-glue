@@ -24,10 +24,8 @@ package eg.edu.guc.met.experiment;
  *
  */
 
-import org.rlcommunity.rlglue.codec.util.EnvironmentLoader;
-
 import eg.edu.guc.met.environment.WumpusWorldEnvironment;
-
+import org.rlcommunity.rlglue.codec.util.EnvironmentLoader;
 
 /**
 *  A simple example of how can you run all components of the skeleton project from a single Java class.
@@ -53,7 +51,6 @@ public class RunExpAndEnvWumpusWorld{
         //Create an agentLoader that will start the agent when its run method is called
         long t1 = System.currentTimeMillis();
 
-
         //Create an environmentloader that will start the environment when its run method is called
         EnvironmentLoader theEnvironmentLoader=new EnvironmentLoader(new WumpusWorldEnvironment(width, height));
 
@@ -74,5 +71,4 @@ public class RunExpAndEnvWumpusWorld{
         System.out.println("time is " + t2);
         System.exit(1);
     }
-
 }

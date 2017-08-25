@@ -23,13 +23,11 @@ package eg.edu.guc.met.experiment;
 
 import java.util.Arrays;
 
+import eg.edu.guc.met.agent.WumpusWorldRandomAgent_intActions;
+import eg.edu.guc.met.environment.WumpusWorldEnvironment;
 import org.rlcommunity.rlglue.codec.AgentInterface;
 import org.rlcommunity.rlglue.codec.util.AgentLoader;
 import org.rlcommunity.rlglue.codec.util.EnvironmentLoader;
-
-import eg.edu.guc.met.agent.WumpusWorldRandomAgent_intActions;
-import eg.edu.guc.met.environment.WumpusWorldEnvironment;
-
 
 /**
 *  A simple example of how can you run all components of the skeleton project from a single Java class.
@@ -46,7 +44,7 @@ import eg.edu.guc.met.environment.WumpusWorldEnvironment;
 */
 public class RunAllWumpusWorld{
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         int width,height,numOfEpisodes;
         if (args.length == 3)
         {

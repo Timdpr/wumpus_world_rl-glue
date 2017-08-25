@@ -19,6 +19,8 @@ package eg.edu.guc.met.agent;
  *  $Date: 2011-10-27
  *  $Author: yahiaelgamal@gmail.com
  *
+ *  Modified by Tim Russell in accordance with this licence
+ *
  */
 
 import java.util.Arrays;
@@ -38,6 +40,8 @@ public class WumpusWorldRandomAgent_intActions implements AgentInterface {
 
     private boolean goldCollected = false;
     private Random randGenerator = new Random();
+    private ActionChooser actionChooser;
+    public static int totalGoldCollected = 0;
 
     /**
      * This Agent doesn't is specially made to work with the Wumpus World
@@ -63,32 +67,17 @@ public class WumpusWorldRandomAgent_intActions implements AgentInterface {
      * @return
      */
     public Action agent_start(Observation observation) {
-        goldCollected =false;
         Action returnAction = new Action(1, 0, 0);
-        System.out.println("obseravations " +
-            Arrays.toString(observation.intArray));
-        double rand = randGenerator.nextDouble();
-        int temp;
+        this.actionChooser = new ActionChooser();
+        this.goldCollected = false;
+        System.out.println("obseravations " + Arrays.toString(observation.intArray));
 
-
-
-        if (observation.intArray[2] == 1) // glitter
-        {
-            temp = 5; // grab action
-            goldCollected = true;
+        int action = actionChooser.chooseAction(observation, goldCollected);
+        if (action == 5) { // if grab
+            this.goldCollected = true;
+            totalGoldCollected++;
         }
-        else if (rand < 0.3 && goldCollected)
-            temp = 6; // climb
-        else if (rand < 0.7)
-            temp = 1; // move forward
-        else if (rand < 0.8)
-            temp = 2; // turn left
-        else if (rand < 0.9)
-            temp = 3; // turn right
-        else temp = 4; // shoot arrow
-
-        returnAction.intArray[0] = temp;
-
+        returnAction.intArray[0] = action;
         return returnAction;
     }
 
@@ -100,29 +89,17 @@ public class WumpusWorldRandomAgent_intActions implements AgentInterface {
      * @return
      */
     public Action agent_step(double reward, Observation observation) {
+        Action returnAction = new Action(1, 0, 0);
+        System.out.println(Arrays.toString(observation.intArray));
 
-      Action returnAction = new Action(1, 0, 0);
-      System.out.println(Arrays.toString(observation.intArray));
-      double rand = randGenerator.nextDouble();
-      char temp;
-      if (observation.intArray[2] == 1) // glitter
-      {
-        temp = 5; // grab action
-        goldCollected = true;
-      }
-      else if (rand < 0.3 && goldCollected)
-        temp = 6; // climb
-      else if (rand < 0.7)
-        temp = 1; // move forward
-      else if (rand < 0.8)
-        temp = 2; // turn left
-      else if (rand < 0.9)
-        temp = 3; // turn right
-      else temp = 4; // shoot arrow
-
-      returnAction.intArray[0] = temp;
-
-      return returnAction;
+        int action = actionChooser.chooseAction(observation, goldCollected);
+        if (action == 5) { // if grab
+            this.goldCollected = true;
+            totalGoldCollected++;
+        }
+        returnAction.intArray[0] = action;
+        actionChooser.printPrevMovements();
+        return returnAction;
     }
 
     /**

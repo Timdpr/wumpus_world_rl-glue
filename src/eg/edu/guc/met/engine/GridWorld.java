@@ -24,7 +24,6 @@ package eg.edu.guc.met.engine;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-
 public class GridWorld
 {
     /**
@@ -39,7 +38,7 @@ public class GridWorld
      * (yahiaelgamal@gmail.com) if you need any help.
      */
     private Cell [][] grid;
-    private WumpusWorldObservation [][] obs;
+    private WumpusWorldObservation[][] obs;
     private Agent agent;
     int agentX = 0;
     int agentY = 0;
