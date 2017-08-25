@@ -31,11 +31,6 @@ import org.rlcommunity.rlglue.codec.types.Action;
 import org.rlcommunity.rlglue.codec.types.Observation;
 import org.rlcommunity.rlglue.codec.util.AgentLoader;
 
-/**
-This is a very simple random agent for the Wumpus World environment.
-
- * @author Yahia El Gamal
- */
 public class WumpusWorldRandomAgent_intActions implements AgentInterface {
 
     private boolean goldCollected = false;
