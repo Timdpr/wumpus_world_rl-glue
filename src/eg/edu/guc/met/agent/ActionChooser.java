@@ -3,6 +3,7 @@ package eg.edu.guc.met.agent;
  * Created by Tim Russell
  */
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -11,7 +12,6 @@ import org.rlcommunity.rlglue.codec.types.Observation;
 public class ActionChooser {
     private LinkedList<Integer> prevMovements = new LinkedList<>();
     private Random random = new Random();
-    private int turnAround = 2;
 
     /**
      * @return Next action for agent (1|2|3|4 not implemented|5|6|7 not used)
@@ -28,6 +28,7 @@ public class ActionChooser {
         }
         else if (observation.intArray[2] == 1) { // if glitter return grab
             ret = 5;
+            parsePrevMoments();
         }
         else {
             ret = chooseRandomMovement();
@@ -39,24 +40,59 @@ public class ActionChooser {
         return ret;
     }
 
-    private int goldCollectedAction() {
-        // if agent just collected gold, turn around
-        if (turnAround > 0) {
-            turnAround--;
-            return 2;
+    private void parsePrevMoments() {
+        // if a bump was detected, delete the forward command that must be next
+        for (int i = prevMovements.size()-1; i >= 0; i--) {
+            if (prevMovements.get(i) == 9) {
+                prevMovements.remove(i);
+                prevMovements.remove(i-1);
+            }
         }
-        else if(!prevMovements.isEmpty()) {
+        // add a 'turn around' action to start
+        prevMovements.add(2);
+        prevMovements.add(2);
+
+        // find latest index at 0,0
+        int origin = findOrigin();
+
+        // remove all steps before that point
+        for (int i = origin; i > 0; i--) {
+            prevMovements.remove(i-1);
+        }
+    }
+
+    private int findOrigin() {
+        char heading = 2; // 1=N 2=E 3=S 4=W
+        Point location = new Point(0,0);
+        int latestOrigin = 0;
+
+        // Move forward through movements calculating location
+        // record when at 0,0
+        for (int i = 0; i < prevMovements.size(); i++) {
+            if (location.getX() == 0 && location.getY() == 0) {
+                latestOrigin = i;
+            }
+            if (prevMovements.get(i) == 1) {
+                switch (heading) {
+                    case 1: location.y++;
+                            break;
+                    case 2: location.x++;
+                            break;
+                    case 3: location.y--;
+                            break;
+                    case 4: location.x--;
+                            break;
+                }
+            }
+        }
+        return latestOrigin;
+    }
+
+    private int goldCollectedAction() {
+        if(!prevMovements.isEmpty()) {
             int action = prevMovements.pollLast();
 
-            // if a bump was detected, delete the forward command that must be next,
-            // then continue operation with next movement in list
-            if (action == 9) {
-                prevMovements.pollLast();
-                action = prevMovements.pollLast();
-            }
-
             // return forward if corresponding action is forward
-            // (as agent is now pointing in opposite direction)
             if (action == 1) { return 1; }
 
             // else return opposite of left/right move
